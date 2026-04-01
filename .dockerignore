@@ -1,0 +1,14 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+mlruns
+.ipynb_checkpoints
+notebooks
+*.md
+.env
+.venv
+venv
+WA_Fn-UseC_-Telco-Customer-Churn.csv
