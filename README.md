@@ -125,4 +125,4 @@ Variable utile : `CHURN_MODEL_PATH` (chemin vers le fichier `.joblib` du bundle 
 
 ## Licence
 
-Projet personnel / démonstration — précisez une licence (ex. MIT) si vous publiez le dépôt.
+Projet personnel / démonstration — MIT licence.
