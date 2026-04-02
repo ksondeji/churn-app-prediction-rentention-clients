@@ -2,12 +2,16 @@
 
 Projet data science autour du churn dans un contexte **télécoms** : exploration des données IBM Telco, pipeline **scikit-learn / XGBoost** optimisé pour repérer les clients à risque, **API FastAPI** prête à être conteneurisée, **dashboard Streamlit** (scores, SHAP, segmentation) et **suivi d’expériences avec MLflow**.
 
+<div align="center">
+  
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![Streamlit](https://img.shields.io/badge/streamlit-1.28-red)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688)
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://first-app-cloud-vhjtmtp83vfptgbkssvy8i.streamlit.app/)
 
+<div align="center">
+  
 ---
 
 ## Problématique
@@ -65,7 +69,7 @@ Les chiffres **varient** selon la graine, la grille d’hyperparamètres (`--qui
 
 | Métrique | Ordre de grandeur |
 | -------- | ----------------- |
-| **Recall (classe churn)** | ≈ **80 %+** (objectif métier : ne pas rater trop de futurs churns) |
+| **Recall (classe churn)** | ≈ **80 %+** (objectif: ne pas rater trop de futurs churns) |
 | **ROC-AUC** | ≈ **0,83** |
 | **Précision (churn)** | plus modérée (compromis naturel quand on pousse le recall) |
 
