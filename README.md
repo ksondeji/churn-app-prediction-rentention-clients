@@ -8,7 +8,7 @@ Projet data science autour du churn dans un contexte **télécoms** : exploratio
 ![Streamlit](https://img.shields.io/badge/streamlit-1.28-red)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688)
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://first-app-cloud-vhjtmtp83vfptgbkssvy8i.streamlit.app/)
+[![Streamlit Churn App](https://churn-app-prediction-rentention-clients-8cpwubapfylccarcjbwggb.streamlit.app/)
 
 <div align="center">
   
