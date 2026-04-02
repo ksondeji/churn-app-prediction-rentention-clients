@@ -28,6 +28,16 @@ En télécoms, une partie des clients quitte l’opérateur sans signal explicit
 
 ---
 
+## Démo live
+
+<div align="center">
+  
+<img src="bankmarketing.gif" alt="Mon Sticker" width="400" height="250" style="display: block; margin-left: auto; margin-right: auto;" />
+
+<div align="center">
+  
+---
+
 ## Ce que livre le dépôt
 
 | Livrable | Rôle |
