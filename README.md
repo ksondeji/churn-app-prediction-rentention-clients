@@ -116,8 +116,15 @@ mlflow ui
 
 ```bash
 docker compose up --build
-# Santé : http://localhost:8000/health
+# Accueil : http://127.0.0.1:8000/  ·  Santé : http://127.0.0.1:8000/health  ·  Swagger : http://127.0.0.1:8000/docs
 ```
+
+**Si le navigateur n’affiche rien ou « impossible d’accéder »**
+
+- Utiliser **`http://127.0.0.1:8000`** plutôt que `localhost` (sur Windows, `localhost` peut pointer en IPv6 alors que le port publié est en IPv4).
+- Vérifier que le conteneur tourne et que le port est bien mappé : `docker compose ps` (colonne *Ports* doit montrer `0.0.0.0:8000->8000/tcp`).
+- Consulter les logs : `docker compose logs -f api`.
+- S’assurer que **`artifacts/churn_bundle.joblib`** existe sur la machine hôte (entraîner le modèle une fois avant) : le volume `./artifacts` du compose doit le contenir ; sans fichier, `/health` répond quand même avec `"status": "degraded"`.
 
 Variable utile : `CHURN_MODEL_PATH` (chemin vers le fichier `.joblib` du bundle si vous ne utilisez pas l’emplacement par défaut).
 

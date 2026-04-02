@@ -20,6 +20,17 @@ app = FastAPI(title="Telco Churn API", version="1.0.0")
 _bundle = None
 
 
+@app.get("/")
+def root():
+    """Page d’accueil : la racine n’était pas définie (sinon 404)."""
+    return {
+        "service": "Telco Churn API",
+        "documentation_interactive": "/docs",
+        "health": "/health",
+        "predict": "POST /predict",
+    }
+
+
 def load_bundle():
     global _bundle
     if _bundle is None:
