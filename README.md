@@ -144,6 +144,32 @@ Variable utile : `CHURN_MODEL_PATH` (chemin vers le fichier `.joblib` du bundle 
 
 ---
 
+## Streamlit Cloud
+
+Le cloud ne lance pas `train_pipeline` : il faut que le modèle soit **disponible dans le dépôt** ou **téléchargeable par URL**.
+
+1. **Recommandé — versionner le bundle**  
+   Après un entraînement local, le fichier `artifacts/churn_bundle.joblib` est **autorisé** par `.gitignore` (exception sur ce chemin). Ajoutez-le au commit et poussez sur GitHub :
+
+   ```bash
+   git add artifacts/churn_bundle.joblib
+   git commit -m "Add model bundle for Streamlit Cloud"
+   git push
+   ```
+
+   *(Fichier typiquement de quelques Mo ; GitHub limite les gros fichiers — au-delà de ~100 Mo, préférez l’option 2.)*
+
+2. **Alternative — secret `CHURN_MODEL_URL`**  
+   Dans l’app Streamlit : **Settings → Secrets**, ajoutez par exemple :
+
+   ```toml
+   CHURN_MODEL_URL = "https://…/churn_bundle.joblib"
+   ```
+
+   L’app télécharge le fichier au premier chargement (cache Streamlit). L’URL doit être accessible publiquement en HTTPS (ex. fichier attaché à une **release GitHub**, bucket S3 public, etc.).
+
+---
+
 ## Licence
 
 Projet personnel / démonstration — MIT licence.

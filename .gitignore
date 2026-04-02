@@ -7,5 +7,7 @@ venv/
 mlruns/
 .ipynb_checkpoints/
 *.joblib
+# Déployer sur Streamlit Cloud : versionner ce fichier OU définir CHURN_MODEL_URL (secrets).
+!artifacts/churn_bundle.joblib
 churn_model.pkl
 .env

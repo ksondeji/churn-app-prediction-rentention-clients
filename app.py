@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import os
+import tempfile
+import urllib.request
 from pathlib import Path
 
 import joblib
@@ -25,6 +27,30 @@ LEGACY_BUNDLE = ROOT / "churn_model.pkl"
 MODEL_ENV = os.environ.get("CHURN_MODEL_PATH")
 
 
+def _bundle_from_path(p: Path):
+    if not p.is_file():
+        return None
+    b = joblib.load(p)
+    if isinstance(b, dict) and "pipeline" in b:
+        return b
+    if hasattr(b, "predict_proba"):
+        return {"pipeline": b, "threshold": 0.5}
+    return None
+
+
+def _remote_model_url() -> str | None:
+    for key in ("CHURN_MODEL_URL", "STREAMLIT_CHURN_MODEL_URL"):
+        v = os.environ.get(key)
+        if v and v.strip():
+            return v.strip()
+    try:
+        if "CHURN_MODEL_URL" in st.secrets:
+            return str(st.secrets["CHURN_MODEL_URL"]).strip()
+    except (FileNotFoundError, RuntimeError, KeyError, TypeError):
+        pass
+    return None
+
+
 @st.cache_resource
 def load_bundle():
     paths = []
@@ -32,12 +58,16 @@ def load_bundle():
         paths.append(Path(MODEL_ENV))
     paths.extend([DEFAULT_BUNDLE, LEGACY_BUNDLE])
     for p in paths:
-        if p.is_file():
-            b = joblib.load(p)
-            if isinstance(b, dict) and "pipeline" in b:
-                return b
-            if hasattr(b, "predict_proba"):
-                return {"pipeline": b, "threshold": 0.5}
+        b = _bundle_from_path(p)
+        if b is not None:
+            return b
+
+    url = _remote_model_url()
+    if url and (url.startswith("https://") or url.startswith("http://")):
+        cache_path = Path(tempfile.gettempdir()) / "streamlit_churn_bundle.joblib"
+        urllib.request.urlretrieve(url, cache_path)
+        return _bundle_from_path(cache_path)
+
     return None
 
 
@@ -71,8 +101,10 @@ st.caption("Scores de risque, SHAP et segmentation pour actions de rétention (h
 bundle = load_bundle()
 if bundle is None:
     st.error(
-        "Aucun bundle modèle trouvé. Exécutez `python -m ml.train_pipeline` depuis la racine du projet "
-        "pour générer `artifacts/churn_bundle.joblib`."
+        "Aucun bundle modèle trouvé. **En local :** exécutez `python -m ml.train_pipeline` puis vérifiez "
+        "`artifacts/churn_bundle.joblib`. **Sur Streamlit Cloud :** commitez ce fichier dans le dépôt "
+        "(il est autorisé dans `.gitignore`) ou définissez le secret **`CHURN_MODEL_URL`** (lien HTTPS "
+        "vers le `.joblib`, ex. release GitHub / stockage objet)."
     )
     st.stop()
 
