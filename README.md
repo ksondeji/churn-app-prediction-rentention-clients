@@ -32,7 +32,7 @@ En télécoms, une partie des clients quitte l’opérateur sans signal explicit
 
 <div align="center">
   
-<img src="bankmarketing.gif" alt="Mon Sticker" width="400" height="250" style="display: block; margin-left: auto; margin-right: auto;" />
+<img src="churn-api-gif.gif" alt="Mon Sticker" width="400" height="250" style="display: block; margin-left: auto; margin-right: auto;" />
 
 <div align="center">
   
